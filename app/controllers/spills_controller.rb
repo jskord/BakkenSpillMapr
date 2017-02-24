@@ -1,0 +1,2 @@
+class SpillsController < ApplicationController
+end

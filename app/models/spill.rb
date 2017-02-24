@@ -1,0 +1,2 @@
+class Spill < ApplicationRecord
+end
