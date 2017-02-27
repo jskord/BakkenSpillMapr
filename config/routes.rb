@@ -1,4 +1,13 @@
 Rails.application.routes.draw do
+
+  namespace :api do
+    namespace :v1 do
+      resources :events
+      resources :search
+      get '/spills' => 'children#index'
+      get '/users' => 'users#index'
+    end
+  end
   get '/' => 'pages#index'
   get '/signup' => 'users#new'
   post '/users' => 'users#create'
