@@ -1,51 +1,128 @@
-<head>
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
     <style>
-       #map {
-        height: 600px;
-        width: 100%;
-       }
-
-/* Removes styles for active state - when user presses the submit button. */
-       .btn:focus {
-         outline: none;
-         color: white;
-         background-color: #5cb85c;
-         border-color: inherit;
-       }
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+      #map {
+        height: 90%;
+      }
+      /* Optional: Makes the sample page fill the window. */
+      html, body {
+        height: 90%;
+        margin: 0;
+        padding: 0;
+      }
     </style>
   </head>
   <body>
-    <h1>Welcome to the SpillMap!</h1>
-    <div ng-app="app">
-      <div ng-controller="MapSearchController">
-      <h3>{{ searchResults }}</h3>
-    <div id="map"></div>
-        <form name="search_form" class="form-inline">
-      <h4>Search For:</h4>
-      <div class="form-group">
-        <label for="searchQueryType"></label>
-        <select class="form-control" id="searchQueryType" ng-model="query.type">
-          <option value="">----Select----</option>
-          <option value="family">Family</option>
-          <option value="physician">Physician</option>
-        </select>
-      </div>
-
-      <div class="form-group">
-        <label for="name"></label>
-        <input type="text" class="form-control" id="name" placeholder="Last Name" ng-model="query.last_name" ng-minlength="1"></input>
-      </div>
-
-      <div class="form-group">
-        <ang-select-usstates ng-model="query.state" name="State" id="selectState" class="form-control"></ang-select-usstates>
-      </div>
-
-      <input type="button" class="btn btn-success" value="Search" ng-click="performSearch()">
-    </form>
+  <h1>Sort by Date</h1>
+  <div id="form_sort">
+  
+    <%= form_tag '/json/sort_by_date', method: :get do  %>
+        <div class="my-class">
+          <%= label_tag :year %>
+          <%= text_field_tag :start_year, 2008 %>
+          <%= label_tag :month %>
+          <%= text_field_tag :start_month, 1 %>
+          <%= label_tag :year %>
+          <%= text_field_tag :end_year, 2017 %>
+          <%= label_tag :month %>
+          <%= text_field_tag :end_month, 1 %>
+          <%= submit_tag "Submit", id: 'submit-button' %>
+        </div>
+  <% end %>
+  
   </div>
-  </div>
+  <div id="map"></div>
+  <script>
+  /* global $, google */
+  $( "form" ).submit(function( event ) {
+    event.preventDefault();
+    var formData = $("form").serialize();
+    console.log(formData);
+    $.getJSON('/json/sort_by_date');
+    $.ajax({
+      url: '/json/sort_by_date',
+      type: 'get',
+      dataType: 'json',
+      data: $('form').serialize(),
+      success: function(data) {
+        for (var i = 0; i < markers.length; i++) {
+          markers[i].setMap(null);
+        }
+        markers = [];
+        if (useMarkerCluser) {
+          markerCluster.clearMarkers();
+        }
+        createMarkers(data);
+        document.getElementById('submit-button').disabled = false;
+      }
+    });
+  });
+  var markers = [];
+  var map;
+  var markerCluster;
+  var useMarkerCluser = true;
+  function initMap() {
+    map = new google.maps.Map(document.getElementById('map'), {
+      zoom: 7,
+      mapTypeControl: true,
+      center: new google.maps.LatLng( 47.361893,-100.465128),
+      mapTypeControlOptions: {
+      style: google.maps.MapTypeControlStyle.DROPDOWN_MENU,
+      mapTypeIds: ['hybrid', 'roadmap', 'terrain']
+      }
+    });
 
+    $.getJSON('/json/all', createMarkers);
+
+        var ctaLayer = new google.maps.KmlLayer({
+      url: 'https://sites.google.com/site/jskordkmlfiles/kml_files/Bakken.kml?revision=2',
+      preserveViewport: true,
+      map: map
+    });
+
+  }
+
+  function createMarkers(data) {
+    data.forEach(function(spill) {
+      var type = spill.contaminant;
+      var volume = spill.volume;
+      var date = spill.date_incident;
+      var units = spill.units;
+      var id = spill.id.toString();
+      var str = "View Spill Page";
+      var infowindow = new google.maps.InfoWindow({
+        content: "Date:" + " " + date + " Contaminant: " + type + " " + "Volume:" + volume + units + " " + str.link("/spills/" + id)
+      });
+      var marker = new google.maps.Marker({
+        position: new google.maps.LatLng(spill.latitude, spill.longitude),
+        map: map
+      });
+      marker.addListener('click', function() {
+        infowindow.open(map, marker);
+      });
+
+      markers.push(marker);
+
+    });
+
+    if (useMarkerCluser) {
+      markerCluster = new MarkerClusterer(map, markers,{
+        imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'
+      });
+    }
+  }
+    </script>
+    <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
     <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCzNgVwahZQ63o16EMv8eU4XFvdkgdr2XM">
+      src="https://maps.googleapis.com/maps/api/js?callback=initMap">
     </script>
   </body>
+</html>
+<script>
+        var markerCluster = new MarkerClusterer(map, markers,
+            {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
+</script>
