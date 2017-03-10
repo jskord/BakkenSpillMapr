@@ -6,6 +6,7 @@ class PagesController < ApplicationController
     render 'signup.html.erb'
   end
   def map
+    @spills = Spill.all
     render 'map.html.erb'
   end
 end
