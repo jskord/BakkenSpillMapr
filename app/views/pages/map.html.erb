@@ -72,7 +72,7 @@
       var id = spill.id.toString();
       var str = "View Spill Page";
       var infowindow = new google.maps.InfoWindow({
-        content: "Date:" + " " + date + " Contaminant: " + type + " " + "Volume:" + volume + units + " " + str.link("/spills/" + id)
+        content: "Contaminant: " + type + " " + str.link("/spills/" + id)
       });
       var marker = new google.maps.Marker({
         position: new google.maps.LatLng(spill.latitude, spill.longitude),
