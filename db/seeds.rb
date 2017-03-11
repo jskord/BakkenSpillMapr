@@ -77,7 +77,7 @@ puts "There are now #{Spill.count} rows in the transactions table"
 
 # puts "Reading data page 1"
 # data = get_data(browser)
-# 100.times do |index|
+# 150.times do |index|
 #   puts "Reading data page #{index + 2}"
 #   browser.find_element(css: 'input[value="Next"]').click
 #   data += get_data(browser)
