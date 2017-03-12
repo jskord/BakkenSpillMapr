@@ -40,17 +40,15 @@
   /* global $, google */
   var markers = [];
   var map;
+  map.setMapTypeId('satellite');
   // var markerCluster;
   // var useMarkerCluser = true;
   function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
       zoom: 7,
-      mapTypeControl: true,
+      // mapTypeControl: true,
       center: new google.maps.LatLng( 47.361893,-100.465128),
-      mapTypeControlOptions: {
-      style: google.maps.MapTypeControlStyle.DROPDOWN_MENU,
-      mapTypeIds: ['hybrid', 'roadmap', 'terrain']
-      }
+      mapTypeId: 'hybrid'
     });
 
     $.getJSON('/json/all', createMarkers);
