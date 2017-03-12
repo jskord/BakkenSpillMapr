@@ -96,20 +96,10 @@ class MapsController < ApplicationController
       end
     end
 
-  # start_date = DateTime.new(params[:start_year].to_i, params[:start_month].to_i)
-  # end_date = DateTime.new(params[:end_year].to_i, params[:end_month].to_i)
-  # selected_spills = spills_since_2000_bakken_counties.select { |spill| spill.date_incident >= start_date && spill.date_incident <= end_date }
+  start_date = DateTime.new(params[:start_year].to_i, params[:start_month].to_i)
+  end_date = DateTime.new(params[:end_year].to_i, params[:end_month].to_i)
+  selected_spills = spills_since_2000_bakken_counties.select { |spill| spill.date_incident >= start_date && spill.date_incident <= end_date }
   render json: spills_since_2000_bakken_counties.to_json
-
-    # start_year = spills_since_2000_bakken_counties.select { |spill| spill.date_incident.year >= params[:start_year].to_i }
-
-    # start_year_month = start_year.select { |spill| spill.date_incident.month >= params[:start_month].to_i }
-
-    # end_year = start_year_month.select { |spill| spill.date_incident.year <= params[:end_year].to_i }
-
-    # year_month_range = end_year.select { |spill| spill.date_incident.month <= params[:end_month].to_i }
-
-    # render json: year_month_range.to_json
   end
 
   def json_show
