@@ -6,7 +6,7 @@
       /* Always set the map height explicitly to define the size of the div
        * element that contains the map. */
       #map {
-        height: 90%;
+        height: 110%;
       }
       /* Optional: Makes the sample page fill the window. */
       html, body {
@@ -17,32 +17,12 @@
     </style>
   </head>
   <body>
-<!--   <h1>Sort by Date</h1>
-  <div id="form_sort">
-  
-    <%= form_tag '/json/sort_by_date', method: :get do  %>
-        <div class="my-class">
-          <%= label_tag :year %>
-          <%= text_field_tag :start_year, 2008 %>
-          <%= label_tag :month %>
-          <%= text_field_tag :start_month, 1 %>
-          <%= label_tag :year %>
-          <%= text_field_tag :end_year, 2017 %>
-          <%= label_tag :month %>
-          <%= text_field_tag :end_month, 1 %>
-          <%= submit_tag "Submit", id: 'submit-button' %>
-        </div>
-  <% end %>
-   -->
-  </div>
   <div id="map"></div>
   <script>
-  /* global $, google */
+    /* global $, google */
   var markers = [];
   var map;
   map.setMapTypeId('satellite');
-  // var markerCluster;
-  // var useMarkerCluser = true;
   function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
       zoom: 7,
@@ -53,12 +33,11 @@
 
     $.getJSON('/json/all', createMarkers);
 
-        var ctaLayer = new google.maps.KmlLayer({
+      var bakkenLayer = new google.maps.KmlLayer({
       url: 'https://sites.google.com/site/jskordkmlfiles/kml_files/Bakken.kml?revision=2',
       preserveViewport: true,
       map: map
     });
-
   }
 
   function createMarkers(data) {
@@ -83,49 +62,11 @@
       markers.push(marker);
 
     });
-
-    if (useMarkerCluser) {
-      markerCluster = new MarkerClusterer(map, markers,{
-        imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'
-      });
-    }
   }
-    </script>
-    <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
-    <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBhiLyzchIrDbps7sdNjA3BpO72DC2Efyo&callback=initMap">
-    </script>
+  </script>
+  <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
+  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBhiLyzchIrDbps7sdNjA3BpO72DC2Efyo&callback=initMap">
+  </script>
 
   </body>
 </html>
-<script>
-        var markerCluster = new MarkerClusterer(map, markers,
-            {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
-</script>
-
-  <script>
-  /* global $, google */
-  $( "form-sort" ).submit(function( event ) {
-    event.preventDefault();
-    var formData = $("form").serialize();
-    console.log(formData);
-    $.getJSON('/json/sort_by_date');
-    $.ajax({
-      url: '/json/sort_by_date',
-      type: 'get',
-      dataType: 'json',
-      data: $('form').serialize(),
-      success: function(data) {
-        for (var i = 0; i < markers.length; i++) {
-          markers[i].setMap(null);
-        }
-        markers = [];
-        if (useMarkerCluser) {
-          markerCluster.clearMarkers();
-        }
-        createMarkers(data);
-        document.getElementById('submit-button').disabled = false;
-      }
-    });
-  });
-  </script>
