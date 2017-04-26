@@ -1,7 +1,7 @@
-class Api::V1::SpillsController < ApplicationController
+class Api::V1::SearchController < ApplicationController
   def index
     rows = Spill.where(hash_params)
-    @families = rows
+    @spills = rows
     render 'spills.json.jbuilder'
   end
 
