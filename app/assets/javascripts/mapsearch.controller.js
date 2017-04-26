@@ -24,35 +24,7 @@
     }, 100)
 
 
-    function createPhysicianMarker(latlng, firstname, lastname, address, state, city, zipcode, speciality, showPage) {
-          var marker = new google.maps.Marker({
-            map: $scope.map,
-            position: latlng,
-            title: firstname,
-          });
-          $scope.markers.push(marker);
-          google.maps.event.addListener(marker, 'click', function() {
-              var contentString = '<div id="content">'+
-              '<div id="siteNotice">'+
-              '</div>'+
-              '<h2 id="firstHeading" class="firstHeading">'+firstname+' '+lastname+'</h2>'+
-              '<div id="bodyContent">'+
-              '<p><b>Address: </b><br>'+
-              address+'<br>'+
-              city+', '+
-              state+' '+
-              zipcode+'</p>'+
-              '<p><b>Speciality:</b> '+speciality+'<br>'+
-              '<a href='+showPage+'>More info</a></p>'+
-              '</div>'+
-              '</div>';
-              $scope.infoWindow.setContent(contentString);
-              $scope.infoWindow.open($scope.map, marker);
-            });
-      }
-
-
-      function createFamilyMarker(latlng, lastname, address, state, city, zipcode, showPage) {
+      function createNewMarker(latlng, lastname, address, state, city, zipcode, showPage) {
         var marker = new google.maps.Marker({
           map: $scope.map,
           position: latlng,
@@ -117,19 +89,6 @@
           $scope.infoWindow.close();
         });
         displayMarkers();
-    }
-
-
-    function printResultNum() {
-        var num  = $scope.data["data"].length;
-
-        if (num === 1) {
-            return num + ' result';
-        } else if (num === 0) {
-            return '0 results';
-        } else {
-            return num + ' results';
-        }
     }
 
 
