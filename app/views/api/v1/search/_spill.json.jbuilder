@@ -4,3 +4,4 @@ json.longitude spill.longitude
 json.contaminant spill.contaminant
 json.volume spill.volume
 json.units spill.units
+json.county spill.county
