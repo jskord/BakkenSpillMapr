@@ -5,3 +5,4 @@ json.contaminant spill.contaminant
 json.volume spill.volume
 json.units spill.units
 json.county spill.county
+json.incident_url spill.incident_url

@@ -1,13 +1,16 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
     <style>
+
+    #map {
+      height: 110%;
+      width: 90%;
+      border: solid;
+    }
+
       /* Always set the map height explicitly to define the size of the div
        * element that contains the map. */
-      #map {
-        height: 110%;
-      }
       /* Optional: Makes the sample page fill the window. */
       html, body {
         height: 90%;
@@ -17,56 +20,30 @@
     </style>
   </head>
   <body>
-  <div id="map"></div>
+
+  <div ng-app="app" ng-controller="mapCtrl">{{message}}</div>
+  <div ng-app="app" ng-controller="mapCtrl" id="map"></div>
+
   <script>
-    /* global $, google */
-  var markers = [];
-  var map;
-  map.setMapTypeId('satellite');
-  function initMap() {
-    map = new google.maps.Map(document.getElementById('map'), {
-      zoom: 7,
-      // mapTypeControl: true,
-      center: new google.maps.LatLng( 47.361893,-100.465128),
-      mapTypeId: 'hybrid'
-    });
+      function initMap() {
+        var uluru = {lat: -25.363, lng: 131.044};
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 4,
+          center: uluru
+        });
+        var marker = new google.maps.Marker({
+          position: uluru,
+          map: map
+        });
+      }
+    </script>
 
-    $.getJSON('/json/all', createMarkers);
 
-      var bakkenLayer = new google.maps.KmlLayer({
-      url: 'https://sites.google.com/site/jskordkmlfiles/kml_files/Bakken.kml?revision=2',
-      preserveViewport: true,
-      map: map
-    });
-  }
 
-  function createMarkers(data) {
-    data.forEach(function(spill) {
-      var type = spill.contaminant;
-      var volume = spill.volume;
-      var date = spill.date_incident;
-      var units = spill.units;
-      var id = spill.id.toString();
-      var str = "View Spill Page";
-      var infowindow = new google.maps.InfoWindow({
-        content: "Contaminant: " + type + " " + str.link("/spills/" + id)
-      });
-      var marker = new google.maps.Marker({
-        position: new google.maps.LatLng(spill.latitude, spill.longitude),
-        map: map
-      });
-      marker.addListener('click', function() {
-        infowindow.open(map, marker);
-      });
 
-      markers.push(marker);
 
-    });
-  }
-  </script>
-  <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
-  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBhiLyzchIrDbps7sdNjA3BpO72DC2Efyo&callback=initMap">
-  </script>
+
+  
 
   </body>
 </html>
