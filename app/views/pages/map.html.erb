@@ -41,6 +41,9 @@
         }
 
         function createMarkers(data) {
+          data.forEach(function(spill) {
+            console.log(spill.contaminant);
+          });
           console.log("hey the createMarker function is working!");
         }
 
