@@ -26,8 +26,8 @@
 
     <script type="text/javascript">
 
-    var startDate="2012"
-    var endDate = "2013"
+    var startDate = "2012";
+    var endDate = "2013";
  /* global $, google */
 
     function initMap() {
@@ -39,12 +39,13 @@
 
       console.log(startDate);
       console.log(endDate);
-      
 
 
 
 
-      $.getJSON('/api/v1/search?', function(data) {
+
+      $.getJSON("/api/v1/search?start_date=" + startDate + "&end_date=" + endDate, function(data) {
+        console.log(data);
         data.forEach(function(spill) {
           var marker = new google.maps.Marker({
             position: new google.maps.LatLng(spill.latitude, spill.longitude),
