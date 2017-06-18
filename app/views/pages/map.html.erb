@@ -33,19 +33,50 @@
             center: uluru
           });
 
+
+
+
           $.getJSON('/api/v1/search?', createMarkers);
 
         }
 
 
+//         for (var i in data.universitylist) {
+//     var lat = data.universitylist[i].lat;
+//     var lng = data.universitylist[i].lng;
+
+//     var map = new google.maps.Map(document.getElementById('map'), {
+//         center: {
+//             lat: lat,
+//             lng: lng
+//         },
+//         scrollwheel: false,
+//         zoom: 8
+//     });
+//     var marker = new google.maps.Marker({
+//         map: map,
+//         position: {
+//             lat: lat,
+//             lng: lng
+//         },
+//         title: 'Hello World!'
+//     });
+// };
         function createMarkers(data) {
-          console.log(data);
-          // data.forEach(function(spill) {
-          //     var marker = new google.maps.Marker({
-          //       position: new google.maps.LatLng(spill.latitude, spill.longitude),
-          //       map : map
-          //     })
-            }
+          var map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 10,
+            center: {lat: 48.074616, lng: -102.979432}
+          });
+          console.log("this function is running");
+          data.forEach(function(spill) {
+            var marker = new google.maps.Marker({
+              position: new google.maps.LatLng(spill.latitude, spill.longitude),
+              map: map
+            });
+          });
+        }
+
+
 
 
     </script>
