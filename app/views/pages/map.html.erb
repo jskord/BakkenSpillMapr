@@ -5,7 +5,7 @@
 
     #map {
       height: 110%;
-      width: 90%;
+      width: 100%;
       border: solid;
     }
 
@@ -21,15 +21,15 @@
   </head>
   <body>
 
-  <div ng-app="app" ng-controller="mapCtrl">{{variable}}</div>
 
-<div id="map"></div>
 
-  <script>
+        <div id="map"></div>
+
+    <script>
       function initMap() {
-        var uluru = {lat: -25.363, lng: 131.044};
+        var uluru = {lat: 48.074616, lng: -102.979432};
         var map = new google.maps.Map(document.getElementById('map'), {
-          zoom: 4,
+          zoom: 10,
           center: uluru
         });
         var marker = new google.maps.Marker({
@@ -39,16 +39,13 @@
       }
     </script>
 
-    <script async defer
-    src="https://maps.googleapis.com/maps/api/js?&callback=initMap">
+            <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCzNgVwahZQ63o16EMv8eU4XFvdkgdr2XM">
     </script>
+      </div>
+    </div>
 
 
-
-
-
-
-  
 
   </body>
 </html>
