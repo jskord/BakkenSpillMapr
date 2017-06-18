@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
+  <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
     <style>
 
     #map {
@@ -20,24 +21,34 @@
     </style>
   </head>
   <body>
+    <div id="map"></div>
 
 
+    <script type="text/javascript">
+        function initMap() {
+          var uluru = {lat: 48.074616, lng: -102.979432};
+          var map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 10,
+            center: uluru
+          });
 
-        <div id="map"></div>
+          $.getJSON('/json/all', createMarkers);
 
-    <script>
-      function initMap() {
-        var uluru = {lat: 48.074616, lng: -102.979432};
-        var map = new google.maps.Map(document.getElementById('map'), {
-          zoom: 10,
-          center: uluru
-        });
-        var marker = new google.maps.Marker({
-          position: uluru,
-          map: map
-        });
-      }
+          var marker = new google.maps.Marker({
+            position: uluru,
+            map: map
+          });
+        }
+
+        function createMarkers(data) {
+          console.log(data);
+        }
+
     </script>
+
+
+
+
 
             <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCzNgVwahZQ63o16EMv8eU4XFvdkgdr2XM">
