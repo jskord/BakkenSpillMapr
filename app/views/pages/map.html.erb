@@ -18,19 +18,39 @@
         margin: 0;
         padding: 0;
       }
+
+      #floating-panel {
+        position: absolute;
+        top: 10px;
+        left: 25%;
+        z-index: 5;
+        background-color: #fff;
+        padding: 5px;
+        border: 1px solid #999;
+        text-align: center;
+        font-family: 'Roboto','sans-serif';
+        line-height: 30px;
+        padding-left: 10px;
+      }
+
+
+
     </style>
   </head>
-  <body>    
-    <input type="text" id="start_date"></input>
+  <body>
 
+    <div id="floating-panel">
+      <input onclick="clearMarkers();" type=button value="Hide Markers">
+      <input onclick="showMarkers();" type=button value="Show All Markers">
+      <input onclick="deleteMarkers();" type=button value="Delete Markers">
+    </div>    
 
-    <input type="text" id="end_date"></input>
-    <input type="button" id="btnInput"></input>
 
     <div id="map"></div>
     
 
 
+    
     <script type="text/javascript">
 
     var startDate = '2000';
@@ -39,8 +59,9 @@
       // startDate = $('#start_date').val();
       // endDate = $('#end_date').val();
       
-      console.log("hey");
-      console.log("effoff");
+      console.log(startDate);
+      console.log(endDate);
+
     });
 
 
@@ -54,54 +75,41 @@
         center: uluru,
         mapTypeId: 'satellite'
       });
-      // var script = document.createElement('script');
-
-      // script.src = '/api/v1/search?';
-      // document.getElementsByTagName('head')[0].appendChild(script);
-
-      // window.eqfeed_callback = function(results) {
-      //   for (var i = 0; i < results.features.length; i++) {
-      //     var coords = results.features[i].geometry.coordinates;
-      //     var latLng = new google.maps.LatLng(coords[1],coords[0]);
-      //     var marker = new google.maps.Marker({
-      //       position: latLng,
-      //       map: map
-      //     });
-      //   }
-      // }
-
-
-
-
-    //   console.log(startDate);
-    //   console.log(endDate);
 
 
 
 
 
-    //   $.getJSON("/api/v1/search?start_date=" + startDate + "&end_date=" + endDate, function(data) {
-    //     console.log(data);
-    //     data.forEach(function(spill) {
-    //       var marker = new google.maps.Marker({
-    //         position: new google.maps.LatLng(spill.latitude, spill.longitude),
-    //         map: map
-    //       });
-    //     });
-    //   });
+
+      $.getJSON("/api/v1/search?start_date=" + startDate + "&end_date=" + endDate, function(data) {
+        console.log(data);
+        data.forEach(function(spill) {
+          var marker = new google.maps.Marker({
+            position: new google.maps.LatLng(spill.latitude, spill.longitude),
+            map: map
+          });
+        });
+      });
     }
 
+
+
+
+
+    var clearMarkers = function() {
+      setMapOnAll(null);
+    };
+
+
+
     </script>
 
 
 
 
 
-            <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCzNgVwahZQ63o16EMv8eU4XFvdkgdr2XM">
-    </script>
-      </div>
-    </div>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCzNgVwahZQ63o16EMv8eU4XFvdkgdr2XM"></script>
+
 
 
 
