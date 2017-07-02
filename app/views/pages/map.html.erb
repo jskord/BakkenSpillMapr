@@ -37,13 +37,7 @@
 
     </style>
   </head>
-  <body>
-
-    <div id="floating-panel">
-      <input onclick="clearMarkers();" type=button value="Hide Markers">
-      <input onclick="showMarkers();" type=button value="Show All Markers">
-      <input onclick="deleteMarkers();" type=button value="Delete Markers">
-    </div>    
+  <body>  
 
 
     <div id="map"></div>
@@ -53,53 +47,31 @@
     
     <script type="text/javascript">
 
-    var startDate = '2000';
-    var endDate = '2017';
-    $('#btnInput').click(function() {
-      // startDate = $('#start_date').val();
-      // endDate = $('#end_date').val();
-      
-      console.log(startDate);
-      console.log(endDate);
-
-    });
-
-
-
- /* global $, google */
-
-    function initMap() {
-      var uluru = {lat: 48.074616, lng: -102.979432};
-      var map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 10,
-        center: uluru,
-        mapTypeId: 'satellite'
-      });
-
-
-
-
-
-
-      $.getJSON("/api/v1/search?start_date=" + startDate + "&end_date=" + endDate, function(data) {
-        console.log(data);
-        data.forEach(function(spill) {
-          var marker = new google.maps.Marker({
-            position: new google.maps.LatLng(spill.latitude, spill.longitude),
-            map: map
-          });
+      var map;
+      function initMap() {
+        map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 8,
+          center: new google.maps.LatLng(48,-100),
+          mapTypeId: 'terrain'
         });
-      });
+
+    // var startDate = '2010';
+    // var endDate = '2011';
+    
+    // var spills = [];
+    // $.getJSON("/api/v1/search?start_date=" + startDate + "&end_date=" + endDate, function(data) {
+    //   for (i = 0; i < data.length; i++) {
+
+    //     spills.push(data[i]);
+    //   }
+    //   console.log(spills);
+
+
+
+
+
+
     }
-
-
-
-
-
-    var clearMarkers = function() {
-      setMapOnAll(null);
-    };
-
 
 
     </script>
