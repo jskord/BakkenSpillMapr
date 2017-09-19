@@ -28,12 +28,12 @@
   <body>  
 
 
-    <div id="map"></div>
+    <div id="map">hello</div>
     
 
 
     
-    <script type="text/javascript">
+    <script>
 
       var map;
       function initMap() {
@@ -42,25 +42,30 @@
           center: new google.maps.LatLng(48,-100),
           mapTypeId: 'satellite'
         });
+      }
+
 
     // var startDate = '2010';
-    // var endDate = '2011';
+    // var endDate = '2016';
     
     // var spills = [];
+
+    //     console.log(startDate);
+
     // $.getJSON("/api/v1/search?start_date=" + startDate + "&end_date=" + endDate, function(data) {
     //   for (i = 0; i < data.length; i++) {
-
     //     spills.push(data[i]);
     //   }
-    //   console.log(spills);
+    // }
 
 
 
-
-
-
-    }
-
+    // for (i = 0; i < spills.length; i++) { 
+    //   marker = new google.maps.Marker({
+    //     position: new google.maps.LatLng(locations[i][1], locations[i][2]),
+    //     map: map
+    //   });
+    // }
 
     </script>
 
