@@ -35,28 +35,50 @@
     
     <script>
 
-      var map;
-      function initMap() {
-        map = new google.maps.Map(document.getElementById('map'), {
-          zoom: 8,
-          center: new google.maps.LatLng(48,-100),
-          mapTypeId: 'satellite'
-        });
-      }
+      // var map;
+      // function initMap() {
+      //   map = new google.maps.Map(document.getElementById('map'), {
+      //     zoom: 8,
+      //     center: new google.maps.LatLng(48,-100),
+      //     mapTypeId: 'satellite'
+      //   });
+      // }
+
+      // var spills = [];
+
+      // spills.push("hello");
+      // spills.push("goodbye");
+
+      // console.log(spills);
 
 
-    // var startDate = '2010';
-    // var endDate = '2016';
-    
-    // var spills = [];
 
-    //     console.log(startDate);
+      $(document).ready(function(){       
+        $.getJSON('/api/v1/search',{
+          format: "json"
+        }).done(function(data){
+          alert(data.length);
+        });     
+      });
 
-    // $.getJSON("/api/v1/search?start_date=" + startDate + "&end_date=" + endDate, function(data) {
+
+
+
+    // $.getJSON('/api/v1/search', function(data) {
     //   for (i = 0; i < data.length; i++) {
-    //     spills.push(data[i]);
+    //     console.log(data[i]);
     //   }
-    // }
+      
+
+    // });
+
+
+
+      //     for (i = 0; i < data.length; i++) {
+      //   spills.push(data[i]);
+      // }
+
+    // console.log(spills);
 
 
 
