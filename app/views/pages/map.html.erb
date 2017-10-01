@@ -44,7 +44,7 @@
       //   });
       // }
 
-      // var spills = [];
+      var spills = [];
 
       // spills.push("hello");
       // spills.push("goodbye");
@@ -57,9 +57,16 @@
         $.getJSON('/api/v1/search',{
           format: "json"
         }).done(function(data){
-          console.log(data);
+          // console.log(data);
+          for (i = 0; i < data.length; i++) {
+            spills.push(data[i]);
+          }
         });
       });
+
+      console.log("this is the spills array:");
+      console.log(spills);
+      console.log("above was the spills array");
 
 
 
