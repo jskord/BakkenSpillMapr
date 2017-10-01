@@ -53,12 +53,12 @@
 
 
 
-      $(document).ready(function(){       
+      $(document).ready(function() {
         $.getJSON('/api/v1/search',{
           format: "json"
         }).done(function(data){
-          alert(data.length);
-        });     
+          console.log(data);
+        });
       });
 
 
