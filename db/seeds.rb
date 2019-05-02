@@ -73,7 +73,7 @@ def get_data(browser)
   data
 end
 
-url = 'http://www.ndhealth.gov/ehs/foia/spills/defaultArc.aspx'
+url = 'https://deq.nd.gov/FOIA/Spills/defaultarc.aspx/'
 
 puts "Creating phantom browswer..."
 browser = Selenium::WebDriver.for :phantomjs
@@ -82,13 +82,13 @@ browser.get url
 
 puts "Reading data page 1"
 data = get_data(browser)
-150.times do |index|
+230.times do |index|
   puts "Reading data page #{index + 2}"
   browser.find_element(css: 'input[value="Next"]').click
   data += get_data(browser)
 end
 
-url = 'https://deq.nd.gov/FOIA/Spills/defaultarc.aspx/'
+url = 'https://deq.nd.gov/FOIA/Spills/default.aspx/'
 
 puts "Creating phantom browswer..."
 browser = Selenium::WebDriver.for :phantomjs
