@@ -39,6 +39,9 @@ require 'nokogiri'
 require 'open-uri'
 require 'selenium-webdriver'
 
+
+
+
 Spill.delete_all
 
 def get_data(browser)
@@ -85,7 +88,7 @@ data = get_data(browser)
   data += get_data(browser)
 end
 
-url = 'http://www.ndhealth.gov/ehs/foia/spills/'
+url = 'https://deq.nd.gov/FOIA/Spills/defaultarc.aspx/'
 
 puts "Creating phantom browswer..."
 browser = Selenium::WebDriver.for :phantomjs
@@ -103,5 +106,6 @@ end
 browser.close
 
 puts "finished!"
+
 
 
