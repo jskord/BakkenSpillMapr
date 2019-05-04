@@ -17,19 +17,21 @@
 // Initialize and add the map
 function initMap() {
   // The location of Uluru
-  var uluru = {lat: -25.344, lng: 131.036};
+  var uluru = {lat: <%= @spills[0].latitude %>, lng: <%= @spills[0].longitude %>};
   // The map, centered at Uluru
 
 
   var map = new google.maps.Map(
-      document.getElementById('map'), {zoom: 4, center: uluru});
+      document.getElementById('map'), {zoom: 7, center: uluru});
   // The marker, positioned at Uluru
 
   
 
 
-  var marker = new google.maps.Marker({position: {lat: -25.344, lng: 131.036}, map: map});
+  var marker = new google.maps.Marker({position: uluru, map: map});
 }
+
+
     </script>
     <!--Load the API from the specified URL
     * The async attribute allows the browser to render the page while the API loads
