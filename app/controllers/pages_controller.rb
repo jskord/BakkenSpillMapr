@@ -7,6 +7,7 @@ class PagesController < ApplicationController
   end
   def map
     @spills = Spill.all
+    @total_spills = Spill.count
     render 'map.html.erb'
   end
 end
