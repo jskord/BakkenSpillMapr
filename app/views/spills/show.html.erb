@@ -16,7 +16,7 @@ function initMap() {
   var myLatLng = {lat: <%= @spill.latitude %>, lng: <%= @spill.longitude %>};
 
   var map = new google.maps.Map(document.getElementById('map'), {
-    zoom: 7,
+    zoom: 15,
     center: myLatLng
   });
 
@@ -25,6 +25,8 @@ function initMap() {
     map: map,
     title: 'Hello World!'
   });
+
+  map.setMapTypeId('satellite');
 }
 </script>
 
